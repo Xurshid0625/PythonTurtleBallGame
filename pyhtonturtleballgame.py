@@ -26,4 +26,32 @@ player.penup()
 player.goto(0, -250)
 
 
+ball = turtle.Turtle()
+
+ball.shape("circle")
+ball.color("white")
+ball.penup()
+ball.goto(random.randint(-280, 280), 250)
+ball_speed = 5 * 1.10
+
+
+def move_left():
+    x = player.xcor() - 20
+    if x < -280:
+        x = -280
+    player.setx(x)
+
+
+def move_right():
+    x = player.xcor() + 20
+    if x > 280:
+        x = 280
+    player.setx(x)
+
+
+window.listen()
+window.onkeypress(move_left, "Left")
+window.onkeypress(move_right, "Right")
+
+
 window.mainloop()
