@@ -49,9 +49,36 @@ def move_right():
     player.setx(x)
 
 
+def game_loop():
+    global score, ball_speed
+    ball.sety(ball.ycor() - ball_speed)
+
+    if (player.xcor() - 50 < ball.xcor() < player.xcor() + 50) and (
+        player.xcor() - 50 < ball.xcor() < player.xcor() + 50
+    ):
+        score += 1
+        ball_speed *= 1.01
+        pen.clear()
+        pen.goto(0, 260)
+        pen.write(f"Score: {score}", align="center", font=("Courier", 24, "normal"))
+        ball.goto(random.randint(-280, 280), 250)
+
+    if ball.ycor() < -300:
+        pen.clear()
+        pen.goto(0, 0)
+        pen.write(
+            "Game Over | Press R to Restart",
+            align="center",
+            font=("Courier", 24, "normal"),
+        )
+        return
+    window.update()
+    window.ontimer(game_loop, 30)
+
+
 window.listen()
 window.onkeypress(move_left, "Left")
 window.onkeypress(move_right, "Right")
 
-
+game_loop()
 window.mainloop()
