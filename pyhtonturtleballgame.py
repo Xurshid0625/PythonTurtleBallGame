@@ -76,6 +76,20 @@ def game_loop():
     window.ontimer(game_loop, 30)
 
 
+def restart():
+    global score, ball_speed
+    score = 0
+    ball_speed = 5 * 1.10
+    pen.clear()
+    pen.goto(0, 260)
+    pen.write(f"Score: 0: {score}", align="center", font=("Courier", 24, "normal"))
+    ball.goto(random.randint(-280, 280), 250)
+    game_loop()
+
+
+window.onkeypress(restart, "r")
+
+
 window.listen()
 window.onkeypress(move_left, "Left")
 window.onkeypress(move_right, "Right")
